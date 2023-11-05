@@ -19,6 +19,7 @@ export const connectTypeOrm = async () => {
                 ProductName,
                 "../entity/*.ts",
                 "../entity/*/*.ts",
+                // "./src/entity/*.ts",
             ],
 
         })
@@ -26,10 +27,20 @@ export const connectTypeOrm = async () => {
         const connection: any = await connectDb.initialize();
         console.log("MySql connected successfully", `${connection.options.username}@${connection.options.host}`);
 
+        return connectDb;
 
+        // await User.create({username:"paras",email:"email@gmail.com",mobile:"8445840329",password:"Paras&Kumar12"});
 
     } catch (err) {
         console.log("Error while connecting database", err.message);
+        return null;
+    }
+}
+export const saveRec = async () => {
+    try {
+
+    } catch (err) {
+        return err.message;
     }
 }
 
