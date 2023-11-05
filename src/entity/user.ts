@@ -7,14 +7,24 @@ export default class User extends BaseEntity {
     id!: number;
 
     @Column()
-    name!: string;
+    username!: string;
 
     @Column()
     email!: string;
 
     @Column()
-    mobile!: number;
+    mobile!: string;
 
     @Column()
     password!: string;
+
+
+    static async createUser(username: string, mobile: string, email: string, password: string) {
+        const user = new User();
+        user.mobile = mobile;
+        user.username = username;
+        user.email = email;
+        user.password = password;
+        return user.save();
+    }
 }
