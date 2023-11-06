@@ -10,18 +10,28 @@ const ormconfig_1 = require("./connect/ormconfig");
 const mongoose_1 = require("./connect/mongoose");
 const routes_1 = __importDefault(require("./routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const swaggerOptions_1 = require("./swagger/swaggerOptions");
 const http = require("http");
 const app = (0, express_1.default)();
 const option = { extended: true, limit: "5mb" };
 app.use(body_parser_1.default.json(option));
 app.use(body_parser_1.default.urlencoded(option));
 const PORT = process.env.PORT || 4000;
+//connect mysql
 (0, ormconfig_1.connectTypeOrm)();
+//connect mongo
 (0, mongoose_1.connect)();
 const saveARec = async () => {
+    // const res = await userCreate(1, "musicoder", "paraskumar2410@gmail.com", "8445840329", "password");
+    // console.log(res);
 };
 saveARec();
+//
+const specs = (0, swagger_jsdoc_1.default)(swaggerOptions_1.options);
 app.use("/api", routes_1.default);
+app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
 app.use("/", (req, res) => {
     console.log(req.body);
     res.send(`This is the most advance node server`);
