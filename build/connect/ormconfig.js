@@ -23,11 +23,13 @@ const connectTypeOrm = async () => {
                 productName_1.default,
                 "../entity/*.ts",
                 "../entity/*/*.ts",
+                // "./src/entity/*.ts",
             ],
         });
         const connection = await connectDb.initialize();
         console.log("MySql connected successfully", `${connection.options.username}@${connection.options.host}`);
         return connectDb;
+        // await User.create({username:"paras",email:"email@gmail.com",mobile:"8445840329",password:"Paras&Kumar12"});
     }
     catch (err) {
         console.log("Error while connecting database", err.message);
