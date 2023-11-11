@@ -78,6 +78,9 @@ const authRouter = express.Router();
  */
 
 authRouter.post("/register", [authValidator.validateRegisterAPI], authController.register);
+authRouter.post("/login", authController.login);
+authRouter.get("/send-otp", authController.sendOtp);
+authRouter.get("/verify-otp", authController.verifyOtp);
 
 export default authRouter;
 
