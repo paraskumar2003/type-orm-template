@@ -36,7 +36,10 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
+<<<<<<< HEAD
 build
+=======
+>>>>>>> bd5aed7 (Initial commit)
 build/Release
 
 # Dependency directories
@@ -90,7 +93,11 @@ out
 
 # Nuxt.js build / generate output
 .nuxt
+<<<<<<< HEAD
 build
+=======
+dist
+>>>>>>> bd5aed7 (Initial commit)
 
 # Gatsby files
 .cache/
@@ -131,5 +138,8 @@ build
 <<<<<<< HEAD
 .pnp.*
 =======
+<<<<<<< HEAD
 .pnp.*
->>>>>>> 8e5cc62 (first commit)
+=======
+.pnp.*
+>>>>>>> bd5aed7 (Initial commit)
