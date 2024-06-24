@@ -15,5 +15,4 @@ export default class Otp extends BaseEntity {
     @Column()
     status!: number; //=> 0 - default, 1 - sent, 2 - verified, 3 - expired, expiry time - 5min
 
-
 }

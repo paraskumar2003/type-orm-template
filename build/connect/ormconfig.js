@@ -4,23 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.saveRec = exports.connectTypeOrm = void 0;
-const productName_1 = __importDefault(require("../entity/product/productName"));
 const user_1 = __importDefault(require("../entity/user"));
 const typeorm_1 = require("typeorm");
 const connectTypeOrm = async () => {
     try {
         const connectDb = new typeorm_1.DataSource({
             type: "mysql",
-            host: "localhost",
-            username: 'root',
-            password: '12345678',
+            host: process.env.NODE_ENV === "production" ? process.env.DB_PROD_HOST : process.env.DB_HOST,
+            username: process.env.NODE_ENV === "production" ? process.env.DB_PROD_USER : process.env.DB_USER,
+            password: process.env.NODE_ENV === "production" ? process.env.DB_PROD_PASSWORD : process.env.DB_PASSWORD,
             port: 3306,
-            database: 'typeorm',
-            logging: true,
+            database: process.env.NODE_ENV === "production" ? process.env.DB_PROD_NAME : process.env.DB_NAME,
+            logging: false,
             synchronize: true,
             entities: [
                 user_1.default,
-                productName_1.default,
                 "../entity/*.ts",
                 "../entity/*/*.ts",
                 // "./src/entity/*.ts",

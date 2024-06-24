@@ -42,7 +42,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 User = User_1 = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, typeorm_1.Index)(['email', 'mobile']),
+    (0, typeorm_1.Index)(['mobile']),
+    (0, typeorm_1.Index)("UNIQ_MOBILE", ['mobile'], { unique: true })
 ], User);
 exports.default = User;
 //# sourceMappingURL=user.js.map

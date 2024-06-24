@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const ormconfig_1 = require("./connect/ormconfig");
-const mongoose_1 = require("./connect/mongoose");
+// import { connect } from './connect/mongoose';
 const routes_1 = __importDefault(require("./routes"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -22,13 +22,7 @@ const PORT = process.env.PORT || 4000;
 //connect mysql
 (0, ormconfig_1.connectTypeOrm)();
 //connect mongo
-(0, mongoose_1.connect)();
-const saveARec = async () => {
-    // const res = await userCreate(1, "musicoder", "paraskumar2410@gmail.com", "8445840329", "password");
-    // console.log(res);
-};
-saveARec();
-//
+// connect();
 const specs = (0, swagger_jsdoc_1.default)(swaggerOptions_1.options);
 app.use("/api", routes_1.default);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));

@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import dotenv from "dotenv";
 dotenv.config();
 import { connectTypeOrm } from './connect/ormconfig';
-import { connect } from './connect/mongoose';
+// import { connect } from './connect/mongoose';
 import router from './routes';
 import bodyParser from 'body-parser';
 import swaggerUI from "swagger-ui-express";
@@ -22,16 +22,8 @@ const PORT = process.env.PORT || 4000;
 connectTypeOrm();
 
 //connect mongo
-connect();
+// connect();
 
-
-const saveARec = async () => {
-    // const res = await userCreate(1, "musicoder", "paraskumar2410@gmail.com", "8445840329", "password");
-    // console.log(res);
-}
-saveARec();
-
-//
 
 const specs = swaggerJsDoc(options);
 

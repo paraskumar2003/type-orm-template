@@ -1,4 +1,3 @@
-import ProductName from "../entity/product/productName";
 import User from "../entity/user";
 import { DataSource } from "typeorm";
 export const connectTypeOrm = async () => {
@@ -7,16 +6,15 @@ export const connectTypeOrm = async () => {
 
         const connectDb = new DataSource({
             type: "mysql",
-            host: "localhost",
-            username: 'root',
-            password: '12345678',
+            host: process.env.NODE_ENV === "production" ? process.env.DB_PROD_HOST : process.env.DB_HOST,
+            username: process.env.NODE_ENV === "production" ? process.env.DB_PROD_USER : process.env.DB_USER,
+            password: process.env.NODE_ENV === "production" ? process.env.DB_PROD_PASSWORD : process.env.DB_PASSWORD,
             port: 3306,
-            database: 'typeorm',
-            logging: true,
+            database: process.env.NODE_ENV === "production" ? process.env.DB_PROD_NAME : process.env.DB_NAME,
+            logging: false,
             synchronize: true,
             entities: [
                 User,
-                ProductName,
                 "../entity/*.ts",
                 "../entity/*/*.ts",
                 // "./src/entity/*.ts",

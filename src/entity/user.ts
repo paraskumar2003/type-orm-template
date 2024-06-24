@@ -1,7 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Index } from "typeorm";
 
 @Entity()
-
+@Index(['email', 'mobile'])
+@Index(['mobile'])
+@Index("UNIQ_MOBILE", ['mobile'], { unique: true })
 export default class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
