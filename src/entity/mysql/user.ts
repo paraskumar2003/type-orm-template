@@ -1,9 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, Index } from "typeorm";
 
 @Entity()
-@Index(['email', 'mobile'])
-@Index(['mobile'])
-@Index("UNIQ_MOBILE", ['mobile'], { unique: true })
+
+// Indexing in a database is a technique used to improve the speed of data retrieval operations 
+// by creating a data structure that allows for quick lookup of records.
+
+@Index(['email', 'mobile']) // Creates a composite index on the 'email' and 'mobile' columns to optimize queries that filter by both fields.
+@Index(['mobile']) // Creates an index on the 'mobile' column to optimize queries that filter by the 'mobile' field.
+
 export default class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -19,7 +23,6 @@ export default class User extends BaseEntity {
 
     @Column()
     password!: string;
-
 
     static async createUser(username: string, mobile: string, email: string, password: string) {
         const user = new User();

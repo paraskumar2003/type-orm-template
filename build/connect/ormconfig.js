@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveRec = exports.connectTypeOrm = void 0;
-const user_1 = __importDefault(require("../entity/user"));
+exports.connectMySql = void 0;
+const mysql_1 = require("../entity/mysql");
 const typeorm_1 = require("typeorm");
-const connectTypeOrm = async () => {
+const connectMySql = async () => {
     try {
         const connectDb = new typeorm_1.DataSource({
             type: "mysql",
@@ -18,29 +15,18 @@ const connectTypeOrm = async () => {
             logging: false,
             synchronize: true,
             entities: [
-                user_1.default,
-                "../entity/*.ts",
-                "../entity/*/*.ts",
-                // "./src/entity/*.ts",
+                mysql_1.User,
+                mysql_1.Otp,
             ],
         });
         const connection = await connectDb.initialize();
         console.log("MySql connected successfully", `${connection.options.username}@${connection.options.host}`);
         return connectDb;
-        // await User.create({username:"paras",email:"email@gmail.com",mobile:"8445840329",password:"Paras&Kumar12"});
     }
     catch (err) {
         console.log("Error while connecting database", err.message);
         return null;
     }
 };
-exports.connectTypeOrm = connectTypeOrm;
-const saveRec = async () => {
-    try {
-    }
-    catch (err) {
-        return err.message;
-    }
-};
-exports.saveRec = saveRec;
+exports.connectMySql = connectMySql;
 //# sourceMappingURL=ormconfig.js.map

@@ -1,6 +1,6 @@
-import User from "../entity/user";
+import { Otp, User } from "../entity/mysql";
 import { DataSource } from "typeorm";
-export const connectTypeOrm = async () => {
+export const connectMySql = async () => {
 
     try {
 
@@ -15,11 +15,8 @@ export const connectTypeOrm = async () => {
             synchronize: true,
             entities: [
                 User,
-                "../entity/*.ts",
-                "../entity/*/*.ts",
-                // "./src/entity/*.ts",
+                Otp,
             ],
-
         })
 
         const connection: any = await connectDb.initialize();
@@ -27,18 +24,8 @@ export const connectTypeOrm = async () => {
 
         return connectDb;
 
-        // await User.create({username:"paras",email:"email@gmail.com",mobile:"8445840329",password:"Paras&Kumar12"});
-
     } catch (err) {
         console.log("Error while connecting database", err.message);
         return null;
     }
 }
-export const saveRec = async () => {
-    try {
-
-    } catch (err) {
-        return err.message;
-    }
-}
-
