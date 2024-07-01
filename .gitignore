@@ -128,11 +128,5 @@ build
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
-<<<<<<< HEAD
+
 .pnp.*
-=======
-<<<<<<< HEAD
-.pnp.*
-=======
-.pnp.*
->>>>>>> bd5aed7 (Initial commit)
