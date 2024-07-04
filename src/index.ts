@@ -31,7 +31,6 @@ const app = express();
 app.use(statusMonitor); // see monitoring at :- http://localhost:4000/status
 
 
-
 interface Option {
     extended: boolean;
     limit: string;
@@ -114,7 +113,6 @@ process.on("uncaughtException", (err) => {
     // Exit the process with a failure code (1)
     process.exit(1);
 });
-
 
 
 console.log({ environment: process.env.NODE_ENV });
