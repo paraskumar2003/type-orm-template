@@ -1,3 +1,3 @@
-import { logger } from "./logger/cloudwatch";
+import { logger } from "./logger";
 
 export { logger };

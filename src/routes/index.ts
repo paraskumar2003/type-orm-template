@@ -1,7 +1,6 @@
 import express from "express";
 import authRouter from "./auth";
 
-
 const router = express.Router();
 /**
   * @swagger
@@ -13,7 +12,6 @@ const router = express.Router();
   *         description: This is the most advance node server
   */
 router.use("/auth", authRouter);
-
 
 
 export default router;

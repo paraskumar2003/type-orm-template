@@ -8,9 +8,9 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 // Connect MySQL database
-const ormconfig_1 = require("./connect/ormconfig");
+// import { connectMySql } from './connect/ormconfig';
 // Connect MongoDb Database
-// import { connect } from './connect/mongoose';
+const mongoose_1 = require("./connect/mongoose");
 // Router
 const routes_1 = __importDefault(require("./routes"));
 // this enables parsing json data from the req.body;
@@ -34,9 +34,9 @@ app.use(body_parser_1.default.urlencoded(option));
 // configuration added for port
 const PORT = process.env.PORT || 4000;
 //connect mysql
-(0, ormconfig_1.connectMySql)();
+// connectMySql();
 //connect mongo
-// connect();
+(0, mongoose_1.connect)();
 // create a middleware to log every request and response.
 app.use("/api", routes_1.default);
 // adding a route for swagger documentation
@@ -50,9 +50,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 // Import the 'http' module to create an HTTP server
-const http = require("http");
+const http_1 = __importDefault(require("http"));
 // Declare a server variable of type 'any' and create an HTTP server with 'app' as the request handler
-let server = http.createServer(app);
+let server = http_1.default.createServer(app);
 // Listen for unhandled promise rejections and handle them
 process.on("unhandledRejection", (err) => {
     // Log the error

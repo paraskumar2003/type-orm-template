@@ -5,10 +5,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Connect MySQL database
-import { connectMySql } from './connect/ormconfig';
+// import { connectMySql } from './connect/ormconfig';
 
 // Connect MongoDb Database
-// import { connect } from './connect/mongoose';
+import { connect } from './connect/mongoose';
 
 // Router
 import router from './routes';
@@ -48,10 +48,10 @@ app.use(bodyParser.urlencoded(option));
 const PORT = process.env.PORT || 4000;
 
 //connect mysql
-connectMySql();
+// connectMySql();
 
 //connect mongo
-// connect();
+connect();
 
 // create a middleware to log every request and response.
 app.use("/api", router);
@@ -71,7 +71,7 @@ app.listen(PORT, () => {
 });
 
 // Import the 'http' module to create an HTTP server
-const http = require("http");
+import http from "http";
 
 // Declare a server variable of type 'any' and create an HTTP server with 'app' as the request handler
 let server: any = http.createServer(app);
