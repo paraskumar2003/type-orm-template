@@ -19,22 +19,24 @@ export const authValidations = {
             .required(),
         password: joi
             .string()
-            .required(),
-        role: joi
-            .string()
-            .valid("Master", "SuperAdmin", "Admin", "CoOrdinator")
-            .required(), // Add role validation with enum-like options
+            .optional(),
     }),
     login: joi.object({
-        username: joi
+        mobile: joi
             .string()
-            .pattern(/^[A-Za-z\s]+$/)
-            .min(2)
-            .max(50)
-            .trim()
+            .pattern(/^[0-9]{10}$/)
             .required(),
         password: joi
             .string()
             .required(),
     }),
+    createPassword: joi.object({
+        mobile: joi
+            .string()
+            .pattern(/^[0-9]{10}$/)
+            .required(),
+        password: joi
+            .string()
+            .required(),
+    })
 };

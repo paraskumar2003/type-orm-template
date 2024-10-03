@@ -1,25 +1,26 @@
 import express, { NextFunction, Request, Response } from "express";
 import { authValidator } from "../validations";
-import { initializeClass } from "../controller";
-import authController from "../controller/auth";
+import { authController, initializeClass } from "../controller";
 
 declare module "express-serve-static-core" {
     interface Request {
-        instance: InstanceType<typeof authController>;
+        auth: InstanceType<typeof authController>;
     }
 }
 
-const attachAuthController = (req: Request, res: Response, next: NextFunction) => {
-    req.instance = initializeClass(req, res, next, authController);
+const assignController = (req: Request, res: Response, next: NextFunction) => {
+    req.auth = initializeClass(req, res, next, authController);
     next();
 };
 
 const authRouter = express.Router();
 
-authRouter.use(attachAuthController);
+authRouter.use(assignController);
 
-authRouter.post("/register", [authValidator.validateRegisterAPI], (req: Request) => req.instance.register());
-authRouter.post("/login", [authValidator.validateRegisterAPI], (req: Request) => req.instance.register());
+authRouter.post("/register", [authValidator.validateRegisterAPI], (req: Request) => req.auth.register());
+authRouter.post("/login", [authValidator.validateLoginAPI], (req: Request) => req.auth.login());
+authRouter.get("/invite/:room_user_id", (req: Request) => req.auth.acceptInvite());
+authRouter.post("/invite/:room_user_id", [authValidator.validateCreatePasswordAPI], (req: Request) => req.auth.acceptInviteWithPassword());
 
 export default authRouter;
 

@@ -3,5 +3,6 @@
 
 // export { authValidations, authValidator };
 
-export { authValidations } from "./auth/authValidations";
-export { authValidator } from "./auth/authValidator";
+export * from "./auth";
+export * from "./rooms";
+export * from "./users";

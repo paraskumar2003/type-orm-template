@@ -27,8 +27,16 @@ const statusMonitor = require('express-status-monitor')();
 // declaring the express server
 const app = express();
 
+// configuring cross-origin
+import cors from "cors";
+app.use(cors());
+
 // adding the resource monitor
 app.use(statusMonitor); // see monitoring at :- http://localhost:4000/status
+
+
+
+
 
 
 interface Option {
@@ -53,6 +61,28 @@ const PORT = process.env.PORT || 4000;
 //connect mongo
 connect();
 
+
+// Redis Queue
+
+
+
+import { createBullBoard } from "@bull-board/api";
+import { BullAdapter } from "@bull-board/api/bullAdapter"
+import { ExpressAdapter } from "@bull-board/express";
+import { queues } from './queue';
+
+const basePath = "/tracking";
+
+const serverAdapter = new ExpressAdapter();
+serverAdapter.setBasePath(basePath);
+
+createBullBoard({
+    queues: queues.map(el => new BullAdapter(el)),
+    serverAdapter
+})
+
+app.use(basePath, serverAdapter.getRouter());
+
 // create a middleware to log every request and response.
 app.use("/api", router);
 
@@ -63,7 +93,7 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use("/", (req: Request, res: Response) => {
     console.log(req.body);
-    res.send(`This is the most advance node server`);
+    res.send(`Welcome to Wedsa 😊`);
 });
 
 app.listen(PORT, () => {
@@ -72,6 +102,8 @@ app.listen(PORT, () => {
 
 // Import the 'http' module to create an HTTP server
 import http from "http";
+
+
 
 // Declare a server variable of type 'any' and create an HTTP server with 'app' as the request handler
 let server: any = http.createServer(app);

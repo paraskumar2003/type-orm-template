@@ -23,6 +23,9 @@ const swaggerOptions_1 = require("./swagger/swaggerOptions");
 const statusMonitor = require('express-status-monitor')();
 // declaring the express server
 const app = (0, express_1.default)();
+// configuring cross-origin
+const cors_1 = __importDefault(require("cors"));
+app.use((0, cors_1.default)());
 // adding the resource monitor
 app.use(statusMonitor); // see monitoring at :- http://localhost:4000/status
 const option = {
@@ -37,6 +40,19 @@ const PORT = process.env.PORT || 4000;
 // connectMySql();
 //connect mongo
 (0, mongoose_1.connect)();
+// Redis Queue
+const api_1 = require("@bull-board/api");
+const bullAdapter_1 = require("@bull-board/api/bullAdapter");
+const express_2 = require("@bull-board/express");
+const queue_1 = require("./queue");
+const basePath = "/tracking";
+const serverAdapter = new express_2.ExpressAdapter();
+serverAdapter.setBasePath(basePath);
+(0, api_1.createBullBoard)({
+    queues: queue_1.queues.map(el => new bullAdapter_1.BullAdapter(el)),
+    serverAdapter
+});
+app.use(basePath, serverAdapter.getRouter());
 // create a middleware to log every request and response.
 app.use("/api", routes_1.default);
 // adding a route for swagger documentation
@@ -44,7 +60,7 @@ const specs = (0, swagger_jsdoc_1.default)(swaggerOptions_1.options);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
 app.use("/", (req, res) => {
     console.log(req.body);
-    res.send(`This is the most advance node server`);
+    res.send(`Welcome to Wedsa 😊`);
 });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

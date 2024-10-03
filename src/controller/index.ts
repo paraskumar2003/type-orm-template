@@ -10,7 +10,7 @@ export interface DerivedClassResponse {
     message: string;
     statusCode: 200 | 201 | 400 | 401 | 402 | 403 | 404 | 409 | 500 | 501 | 502;
     data: Record<string, any> | null;
-    error: ApiError | null;
+    error: Partial<ApiError> | null;
 }
 
 class BaseController {
@@ -62,3 +62,8 @@ const initializeClass = <T extends BaseController>(req: Request, res: Response, 
 }
 
 export { BaseController, initializeClass };
+export * from "./auth";
+export * from "./rooms";
+export * from "./users";
+export * from "./guest";
+export * from "./checklist";
