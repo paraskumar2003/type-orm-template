@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { RoomUser, RoomUserStatus, User, UserStatus } from "../entity/mongo";
 dotenv.config();
 
 declare module "express-serve-static-core" {
@@ -28,53 +27,16 @@ class MiddleWares {
             // Decode or verify the token
             const decoded: any = jwt.verify(token, process.env.JWT_SECRET_KEY as string); // Replace 'your_secret_key' with your actual secret key
 
+            console.log({ decoded });
+
             // Attach the decoded token to the request for use in other middleware/routes
             req.decoded = decoded;
 
-            let user = await User.findOne({ user_id: decoded?.user_id });
-
-            if (!user) {
-                return res.status(401).json({ success: false, message: "Invalid request", data: null, error: null });
-            }
-
-            if (user.status === UserStatus.inactive || user.status == UserStatus.blocked) {
-                return res.status(401).json({ success: false, message: "You no longer can access the dashboard.", data: null, error: null })
-            }
-
-            req.user = user;
+            req.user = decoded;
             next(); // Pass control to the next middleware
             return true;
 
         } catch (error) {
-            return res.status(401).json({ success: false, message: "Invalid or expired token", data: null, error: null });
-        }
-    }
-
-    static async isUserPartOfTheRoom(req: Request, res: Response, next: NextFunction) {
-        try {
-
-            let { room_user_id } = req.decoded;
-
-            if (!room_user_id) {
-                return res.status(401).json({ message: "Please check in the desired room." });
-            }
-
-            let room_user = await RoomUser.findOne({ room_user_id });
-
-            if (!room_user) {
-                return res.status(401).json({ success: false, message: "You're not a participant of this room", data: null, error: null });
-            }
-
-            if (room_user.status === RoomUserStatus.inactive) {
-                return res.status(401).json({ success: false, message: "You're no longer a participant of this room", data: null, error: null });
-            }
-
-            req.room_user = room_user;
-
-            next();
-            return true;
-
-        } catch (err) {
             return res.status(401).json({ success: false, message: "Invalid or expired token", data: null, error: null });
         }
     }

@@ -14,7 +14,14 @@ export const authValidator = {
         const value = await authValidations.createPassword.validate(req.body);
         errorValue(value, res, next);
     },
-
+    validateSendOtp: async (req: Request, res: Response, next: NextFunction) => {
+        const value = await authValidations.sendOtp.validate(req.body);
+        errorValue(value, res, next);
+    },
+    validateVerifyOtp: async (req: Request, res: Response, next: NextFunction) => {
+        const value = await authValidations.verifyOtp.validate(req.body);
+        errorValue(value, res, next);
+    }
 }
 
 const errorValue = async (value: any, res: Response, next: NextFunction) => {

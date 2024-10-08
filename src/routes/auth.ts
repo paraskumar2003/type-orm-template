@@ -17,10 +17,8 @@ const authRouter = express.Router();
 
 authRouter.use(assignController);
 
-authRouter.post("/register", [authValidator.validateRegisterAPI], (req: Request) => req.auth.register());
-authRouter.post("/login", [authValidator.validateLoginAPI], (req: Request) => req.auth.login());
-authRouter.get("/invite/:room_user_id", (req: Request) => req.auth.acceptInvite());
-authRouter.post("/invite/:room_user_id", [authValidator.validateCreatePasswordAPI], (req: Request) => req.auth.acceptInviteWithPassword());
+authRouter.post("/send-otp", [authValidator.validateSendOtp], (req: Request) => req.auth.sendOtp());
+authRouter.post("/verify-otp", [authValidator.validateVerifyOtp], (req: Request) => req.auth.verifyOtp());
 
 export default authRouter;
 

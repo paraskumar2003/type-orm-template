@@ -63,7 +63,4 @@ const initializeClass = <T extends BaseController>(req: Request, res: Response, 
 
 export { BaseController, initializeClass };
 export * from "./auth";
-export * from "./rooms";
-export * from "./users";
-export * from "./guest";
-export * from "./checklist";
+export * from "./quiz";

@@ -29,7 +29,7 @@ app.use((0, cors_1.default)());
 // adding the resource monitor
 app.use(statusMonitor); // see monitoring at :- http://localhost:4000/status
 const option = {
-    extended: true,
+    extended: true, // true for parsing the nested json object, false for parsing the first stage only
     limit: "5mb" // maximum size of data that can be parsed
 };
 app.use(body_parser_1.default.json(option));
@@ -60,7 +60,7 @@ const specs = (0, swagger_jsdoc_1.default)(swaggerOptions_1.options);
 app.use("/docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));
 app.use("/", (req, res) => {
     console.log(req.body);
-    res.send(`Welcome to Wedsa 😊`);
+    res.send(`Welcome to Red&White 😊`);
 });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

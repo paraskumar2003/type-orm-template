@@ -34,11 +34,6 @@ app.use(cors());
 // adding the resource monitor
 app.use(statusMonitor); // see monitoring at :- http://localhost:4000/status
 
-
-
-
-
-
 interface Option {
     extended: boolean;
     limit: string;
@@ -93,7 +88,7 @@ app.use("/docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use("/", (req: Request, res: Response) => {
     console.log(req.body);
-    res.send(`Welcome to Wedsa 😊`);
+    res.send(`Welcome to Red&White 😊`);
 });
 
 app.listen(PORT, () => {
